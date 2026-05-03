@@ -1,5 +1,6 @@
 document.getElementById("new-deck").addEventListener("click", handleClick);
-document.getElementById("draw-cards").addEventListener("click", drawCards);
+const drawCardsBtn = document.getElementById("draw-cards");
+drawCardsBtn.addEventListener("click", drawCards);
 
 let deckId;
 
@@ -9,6 +10,7 @@ function handleClick() {
     .then((data) => {
       console.log(data);
       deckId = data.deck_id;
+      drawCardsBtn.removeAttribute("disabled");
     });
 }
 
