@@ -22,7 +22,7 @@ function drawCards() {
       let cardsHtml = "";
 
       for (let card of data.cards) {
-        cardsHtml += `<img src="${card.image}">`;
+        cardsHtml += `<img src="${card.image}" class="w-auto min-w-24 max-w-48">`;
       }
 
       cardsContainer.innerHTML = cardsHtml;
