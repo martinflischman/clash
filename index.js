@@ -3,6 +3,22 @@ const drawCardsBtn = document.getElementById("draw-cards");
 drawCardsBtn.addEventListener("click", drawCards);
 const cardsContainer = document.getElementById("cards-container");
 
+const cardValues = [
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "JACK",
+  "QUEEN",
+  "KING",
+  "ACE",
+];
+
 let deckId;
 
 function handleClick() {
@@ -26,5 +42,20 @@ function drawCards() {
       }
 
       cardsContainer.innerHTML = cardsHtml;
+
+      getWinner(data.cards[0], data.cards[1]);
     });
+}
+
+function getWinner(card1, card2) {
+  const card1Score = cardValues.indexOf(card1.value);
+  const card2Score = cardValues.indexOf(card2.value);
+
+  if (card1Score > card2Score) {
+    console.log("Card 1 wins");
+  } else if (card1Score < card2Score) {
+    console.log("Card 2 wins");
+  } else {
+    console.log("It's a tie!");
+  }
 }
