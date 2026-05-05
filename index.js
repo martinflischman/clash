@@ -3,6 +3,7 @@ const drawCardsBtn = document.getElementById("draw-cards");
 drawCardsBtn.addEventListener("click", drawCards);
 const cardsContainer = document.getElementById("cards-container");
 const resultMsg = document.getElementById("result-msg");
+const cardsRemaining = document.getElementById("cards-remaining");
 
 const cardValues = [
   "2",
@@ -46,6 +47,9 @@ function drawCards() {
       const roundWinner = getWinner(data.cards[0], data.cards[1]);
 
       resultMsg.textContent = roundWinner;
+
+      cardsRemaining.textContent = `Cards remaining: ${data.remaining}`;
+      cardsRemaining.classList.remove("hidden");
     });
 }
 
