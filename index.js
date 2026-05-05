@@ -2,6 +2,7 @@ document.getElementById("new-deck").addEventListener("click", handleClick);
 const drawCardsBtn = document.getElementById("draw-cards");
 drawCardsBtn.addEventListener("click", drawCards);
 const cardsContainer = document.getElementById("cards-container");
+const resultMsg = document.getElementById("result-msg");
 
 const cardValues = [
   "2",
@@ -25,7 +26,6 @@ function handleClick() {
   fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       deckId = data.deck_id;
       drawCardsBtn.removeAttribute("disabled");
     });
@@ -43,7 +43,9 @@ function drawCards() {
 
       cardsContainer.innerHTML = cardsHtml;
 
-      getWinner(data.cards[0], data.cards[1]);
+      const roundWinner = getWinner(data.cards[0], data.cards[1]);
+
+      resultMsg.textContent = roundWinner;
     });
 }
 
@@ -52,10 +54,10 @@ function getWinner(card1, card2) {
   const card2Score = cardValues.indexOf(card2.value);
 
   if (card1Score > card2Score) {
-    console.log("Card 1 wins");
+    return "Computer wins 🤖";
   } else if (card1Score < card2Score) {
-    console.log("Card 2 wins");
+    return "You win 🎉";
   } else {
-    console.log("It's a tie!");
+    return "War‼️";
   }
 }
