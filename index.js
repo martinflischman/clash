@@ -24,8 +24,9 @@ const cardValues = [
 ];
 
 let deckId;
-
 let cardsLeft = 0;
+let playerWins = 0;
+let computerWins = 0;
 
 function handleClick() {
   fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
@@ -53,6 +54,8 @@ function drawCards() {
       }
 
       const roundWinner = getWinner(data.cards[0], data.cards[1]);
+      computerScore.textContent = `Computer score: ${computerWins}`;
+      playerScore.textContent = `Player score: ${playerWins}`;
 
       resultMsg.textContent = roundWinner;
 
@@ -73,8 +76,12 @@ function getWinner(card1, card2) {
   const card2Score = cardValues.indexOf(card2.value);
 
   if (card1Score > card2Score) {
+    computerWins += 1;
+
     return "Computer wins 🤖";
   } else if (card1Score < card2Score) {
+    playerWins += 1;
+
     return "You win 🎉";
   } else {
     return "War‼️";
