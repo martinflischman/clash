@@ -49,7 +49,7 @@ async function drawCards() {
   let cardsHtml = "";
 
   for (let card of data.cards) {
-    cardsHtml += `<img src="${card.image}" alt="${card.value} of ${card.suit}" class="w-auto min-w-24 max-w-48">`;
+    cardsHtml += `<img src="${card.image}" alt="${card.value} of ${card.suit}" class="w-auto max-w-32 md:max-w-48">`;
   }
 
   if (data.remaining > 0) {
