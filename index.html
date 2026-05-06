@@ -13,11 +13,13 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script defer src="index.js"></script>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🃏</text></svg>">
 </head>
 
 <body class="bg-[url(/img/table.jpg)] min-h-screen bg-center bg-cover bg-no-repeat flex flex-col">
     <div class="flex-1 flex flex-col max-w-2xl w-full mx-auto px-4 py-4">
-        <div id="" class="flex justify-between items-center pb-6">
+        <div class="flex justify-between items-center pb-6">
             <button id="new-deck" class="btn btn-warning text-base-content self-start">New Deck</button>
             <div id="cards-remaining" class="hidden self-center text-white text-xl"></div>
         </div>
@@ -35,7 +37,7 @@
     </div>
     <div class="flex justify-center pb-6 px-4 w-full mx-auto pt-4">
         <button id="draw-cards" class="btn btn-lg btn-warning text-base-content w-full md:w-64 text-xl"
-            disabled>Draw</button>
+            aria-label="Draw two cards" disabled>Draw</button>
     </div>
 </body>
 
