@@ -4,6 +4,8 @@ drawCardsBtn.addEventListener("click", drawCards);
 const cardsContainer = document.getElementById("cards-container");
 const resultMsg = document.getElementById("result-msg");
 const cardsRemaining = document.getElementById("cards-remaining");
+const computerScore = document.getElementById("computer-score");
+const playerScore = document.getElementById("player-score");
 
 const cardValues = [
   "2",
@@ -29,6 +31,8 @@ function handleClick() {
     .then((data) => {
       deckId = data.deck_id;
       drawCardsBtn.removeAttribute("disabled");
+      cardsRemaining.textContent = `Cards remaining: ${data.remaining}`;
+      cardsRemaining.classList.remove("hidden");
     });
 }
 
@@ -48,8 +52,8 @@ function drawCards() {
 
       resultMsg.textContent = roundWinner;
 
-      cardsRemaining.textContent = `Cards remaining: ${data.remaining}`;
-      cardsRemaining.classList.remove("hidden");
+      computerScore.classList.remove("hidden");
+      playerScore.classList.remove("hidden");
     });
 }
 
