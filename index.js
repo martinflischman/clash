@@ -25,6 +25,8 @@ const cardValues = [
 
 let deckId;
 
+let cardsLeft = 0;
+
 function handleClick() {
   fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
     .then((res) => res.json())
@@ -46,7 +48,9 @@ function drawCards() {
         cardsHtml += `<img src="${card.image}" class="w-auto min-w-24 max-w-48">`;
       }
 
-      cardsContainer.innerHTML = cardsHtml;
+      if (data.remaining > 0) {
+        cardsContainer.innerHTML = cardsHtml;
+      }
 
       const roundWinner = getWinner(data.cards[0], data.cards[1]);
 
@@ -54,6 +58,13 @@ function drawCards() {
 
       computerScore.classList.remove("hidden");
       playerScore.classList.remove("hidden");
+      cardsLeft = data.remaining;
+      cardsRemaining.textContent = `Cards remaining: ${data.remaining}`;
+
+      if (cardsLeft === 0) {
+        drawCardsBtn.setAttribute("disabled", true);
+        drawCardsBtn.classList.add("disabled");
+      }
     });
 }
 
