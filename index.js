@@ -29,55 +29,56 @@ let playerWins = 0;
 let computerWins = 0;
 let gameWinner;
 
-function handleClick() {
-  fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
-    .then((res) => res.json())
-    .then((data) => {
-      deckId = data.deck_id;
-      drawCardsBtn.removeAttribute("disabled");
-      cardsRemaining.textContent = `Cards remaining: ${data.remaining}`;
-      cardsRemaining.classList.remove("hidden");
-    });
+async function handleClick() {
+  const response = await fetch(
+    "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
+  );
+  const data = await response.json();
+  deckId = data.deck_id;
+  drawCardsBtn.removeAttribute("disabled");
+  cardsRemaining.textContent = `Cards remaining: ${data.remaining}`;
+  cardsRemaining.classList.remove("hidden");
 }
 
-function drawCards() {
-  fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
-    .then((res) => res.json())
-    .then((data) => {
-      let cardsHtml = "";
+async function drawCards() {
+  const response = await fetch(
+    `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`,
+  );
+  const data = await response.json();
 
-      for (let card of data.cards) {
-        cardsHtml += `<img src="${card.image}" alt="${card.value} of ${card.suit}" class="w-auto min-w-24 max-w-48">`;
-      }
+  let cardsHtml = "";
 
-      if (data.remaining > 0) {
-        cardsContainer.innerHTML = cardsHtml;
-      }
+  for (let card of data.cards) {
+    cardsHtml += `<img src="${card.image}" alt="${card.value} of ${card.suit}" class="w-auto min-w-24 max-w-48">`;
+  }
 
-      const roundWinner = getWinner(data.cards[0], data.cards[1]);
-      computerScore.textContent = `Computer score: ${computerWins}`;
-      playerScore.textContent = `Player score: ${playerWins}`;
+  if (data.remaining > 0) {
+    cardsContainer.innerHTML = cardsHtml;
+  }
 
-      resultMsg.textContent = roundWinner;
+  const roundWinner = getWinner(data.cards[0], data.cards[1]);
+  computerScore.textContent = `Computer score: ${computerWins}`;
+  playerScore.textContent = `Player score: ${playerWins}`;
 
-      computerScore.classList.remove("hidden");
-      playerScore.classList.remove("hidden");
-      cardsLeft = data.remaining;
-      cardsRemaining.textContent = `Cards remaining: ${data.remaining}`;
+  resultMsg.textContent = roundWinner;
 
-      if (cardsLeft === 0) {
-        drawCardsBtn.setAttribute("disabled", true);
-        drawCardsBtn.classList.add("disabled");
-      }
+  computerScore.classList.remove("hidden");
+  playerScore.classList.remove("hidden");
+  cardsLeft = data.remaining;
+  cardsRemaining.textContent = `Cards remaining: ${data.remaining}`;
 
-      if (cardsLeft === 0 && computerWins > playerWins) {
-        resultMsg.textContent = `The Computer Won the game 🤖`;
-      } else if (cardsLeft === 0 && computerWins < playerWins) {
-        resultMsg.textContent = `You Won the game! 🎉`;
-      } else if (cardsLeft === 0 && computerWins === playerWins) {
-        resultMsg.textContent = `It's a Tie 🤝`;
-      }
-    });
+  if (cardsLeft === 0) {
+    drawCardsBtn.setAttribute("disabled", true);
+    drawCardsBtn.classList.add("disabled");
+  }
+
+  if (cardsLeft === 0 && computerWins > playerWins) {
+    resultMsg.textContent = `The Computer Won the game 🤖`;
+  } else if (cardsLeft === 0 && computerWins < playerWins) {
+    resultMsg.textContent = `You Won the game! 🎉`;
+  } else if (cardsLeft === 0 && computerWins === playerWins) {
+    resultMsg.textContent = `It's a Tie 🤝`;
+  }
 }
 
 function getWinner(card1, card2) {
