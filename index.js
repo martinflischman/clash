@@ -27,6 +27,7 @@ let deckId;
 let cardsLeft = 0;
 let playerWins = 0;
 let computerWins = 0;
+let gameWinner;
 
 function handleClick() {
   fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
@@ -68,6 +69,14 @@ function drawCards() {
         drawCardsBtn.setAttribute("disabled", true);
         drawCardsBtn.classList.add("disabled");
       }
+
+      if (cardsLeft === 0 && computerWins > playerWins) {
+        resultMsg.textContent = `The Computer Won 🤖`;
+      } else if (cardsLeft === 0 && computerWins < playerWins) {
+        resultMsg.textContent = `You Won! 🎉`;
+      } else if (cardsLeft === 0 && computerWins === playerWins) {
+        resultMsg.textContent = `It's a Tie 🤝`;
+      }
     });
 }
 
@@ -77,13 +86,11 @@ function getWinner(card1, card2) {
 
   if (card1Score > card2Score) {
     computerWins += 1;
-
-    return "Computer wins 🤖";
+    return "Computer wins round!";
   } else if (card1Score < card2Score) {
     playerWins += 1;
-
-    return "You win 🎉";
+    return "You win round!";
   } else {
-    return "War‼️";
+    return "War! ⚔️";
   }
 }
