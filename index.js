@@ -71,9 +71,9 @@ function drawCards() {
       }
 
       if (cardsLeft === 0 && computerWins > playerWins) {
-        resultMsg.textContent = `The Computer Won 🤖`;
+        resultMsg.textContent = `The Computer Won the game 🤖`;
       } else if (cardsLeft === 0 && computerWins < playerWins) {
-        resultMsg.textContent = `You Won! 🎉`;
+        resultMsg.textContent = `You Won the game! 🎉`;
       } else if (cardsLeft === 0 && computerWins === playerWins) {
         resultMsg.textContent = `It's a Tie 🤝`;
       }
